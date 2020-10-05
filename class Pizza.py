@@ -21,13 +21,16 @@ class Pizza:
         self.list.pop()
 
     def get_order(self,money):
-        if money > self.price:
+        if money >= self.price:
             result = money-self.price
-            return result
+            if result == 0:
+                return 'Ваш заказ оформлен'
+            else:
+                return f'Ваша сдача : {result}'
         else:
-            return "Не достаточно средств"
+            return "Недостаточно средств"
 
-pizza1 = Pizza('Peperoni','сырная',450)
+pizza1 = Pizza('Pepperoni','сырная',450)
 pizza2 = Pizza('Chili','с перцем',480)
 pizza1.order(pizza1)
 print(pizza1.list)
