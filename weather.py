@@ -16,7 +16,21 @@ class RapidWeatherForecast:
         data = data.json()
         # main,wind,clouds
         data_main,data_wind,data_clouds=data['main'],data['wind'],data['clouds']
-        return data_main,data_wind,data_clouds
+        data_main['temp'] = data_main['temp'] - 273
+        data_main['temp'] = round(data_main['temp'])
+        data_final_main = {}
+        data_final_main['Температура'] = data_main['temp']
+        data_main['feels_like'] = data_main['feels_like'] - 273
+        data_main['feels_like'] = round(data_main['feels_like'])
+        data_final_main['Ощущается как'] = data_main['feels_like']
+        data_main['temp_max'] = data_main['temp_max'] - 273
+        data_main['temp_max'] = round(data_main['temp_max'])
+        data_final_main['Максимальная температура'] = data_main['temp_max']
+        data_main['temp_min'] = data_main['temp_min'] - 273
+        data_main['temp_min'] = round(data_main['temp_min'])
+        data_final_main['Минимальная температура'] = data_main['temp_min']
+        return {'data':f'В городе {city} {data_final_main} градусов'}
+
 
 class CityInfo:
 
@@ -30,9 +44,10 @@ class CityInfo:
     def __str__(self):
         return self.city
 
-city = CityInfo('Dubai')
+city = CityInfo('Bishkek')
 city_info = city.weather_forecast()
 pprint.pprint(city_info)
+
 
 
 
